@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TrackTracer - Run Route and Spotify Playlist</title>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <h1>TrackTracer</h1>
+    </header>
+
+    <!-- Main Content Section -->
+    <main>
+        <!-- Map Section -->
+        <section id="map-section">
+            <h2>Map</h2>
+            <div id="map-container">
+                <!-- Map will be inserted here -->
+            </div>
+            <button id="generate-route">Generate Route</button>
+        </section>
+
+        <!-- Spotify Playlist Section -->
+        <section id="spotify-section">
+            <h2>Spotify Playlist</h2>
+            <button id="connect-spotify">Connect to Spotify</button>
+            <div id="playlist-container">
+                <!-- Spotify Playlist will be inserted here -->
+                <label for="genre">
+                    <select name="genre" id="genre">
+                        <option value="" disabled selected>Select your genre</option>
+                        <option value="pop">Pop</option>
+                        <option value="rap">Rap</option>
+                        <option value="rnb">R&B</option>
+                        <option value="hiphop">Hip-Hop</option>
+                        <option value="metal">Metal</option>
+                        <option value="rock">Rock</option>
+                        <option value="classical">Classical</option>
+                        <option value="country">Country</option>
+                        <option value="punk">Punk</option>
+                        <option value="emo">Emo</option>
+                        <option value="ska">Ska</option>
+                        
+                    </select>
+                </label>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2023, TrackTracer Inc.</p>
+    </footer>
+</body>
+</html>
