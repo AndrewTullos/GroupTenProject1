@@ -15,10 +15,22 @@
         <!-- Map Section -->
         <section id="map-section">
             <h2>Map</h2>
-            <div id="map-container">
+            <form id="map-container">
+                <label for="start-address">Enter the starting address (i.e. 123 Alphabet Street, City, State, 12345):</label>
+                <input id="start-address" name="start-address">
+                <label for="end-address">Enter the ending address:</label>
+                <input id="end-address" name="end-address">
+                <label for="travel-type"></label>
+                <select name="travel-type" id="travel-type">
+                    <option value="" disabled selected>Select the travel type</option>
+                    <option value="walk">Walk</option>
+                    <option value="drive">Drive</option>
+                    <option value="cycle">Cycle</option>
+                </select>
                 <!-- Map will be inserted here -->
-            </div>
-            <button id="generate-route">Generate Route</button>
+                <button id="generate-route">Generate Route</button>
+            </form>
+            
         </section>
 
         <!-- Spotify Playlist Section -->
@@ -47,7 +59,8 @@
             </div>
         </section>
     </main>
-
+    <script src="/assets/js/spotify.js"></script>
+    <script></script>
     <!-- Footer Section -->
     <footer>
         <p>&copy; 2023, TrackTracer Inc.</p>

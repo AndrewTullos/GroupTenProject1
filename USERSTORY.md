@@ -45,12 +45,6 @@ If the GPS or Route Planner is unable to function, the playlist generation featu
 
 If the travel time extends far beyond the initially estimated time, the app will either loop the playlist or prompt the user to generate a new one.
 
-Priority
-High
-
-Story Points
-8
-
 Acceptance Criteria
 The app successfully calculates the route and estimated travel time.
 A playlist is generated that closely matches the estimated travel time.
