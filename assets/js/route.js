@@ -1,6 +1,6 @@
 const myAPIKey = 'aae43d1f2f8f4ba8aceacce104a02fe4'
-const fromWaypoint = [-72.79419772520356, 44.53361448499783] // latutude, longitude
-const toWaypoint = [-72.79419772520356, 44.5] // latitude, longitude
+// const fromWaypoint = [-72.79419772520356, 44.53361448499783] // latutude, longitude
+// const toWaypoint = [-72.79419772520356, 44.5] // latitude, longitude
 const travelType = 'drive' // walk bicycle drive
 const routeUrl = `https://api.geoapify.com/v1/routing?waypoints=lonlat:${fromWaypoint.join(
 	','
