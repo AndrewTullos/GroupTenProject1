@@ -1,122 +1,136 @@
-const myAPIKey = 'aae43d1f2f8f4ba8aceacce104a02fe4'
-// const fromWaypoint = [-72.79419772520356, 44.53361448499783] // latutude, longitude
-// const toWaypoint = [-72.79419772520356, 44.5] // latitude, longitude
-const travelType = 'drive' // walk bicycle drive
-const routeUrl = `https://api.geoapify.com/v1/routing?waypoints=lonlat:${fromWaypoint.join(
-	','
-)}|lonlat:${toWaypoint.join(',')}&mode=${travelType}&details=route_details,elevation&units=imperial&apiKey=${myAPIKey}`
+// Replace with your Geoapify API keys
+const GEOAPIFY_API_KEY = 'aae43d1f2f8f4ba8aceacce104a02fe4'
 
+// Initialize MaplibreGL map
 const map = new maplibregl.Map({
-	container: 'my-map',
-	style: `https://maps.geoapify.com/v1/styles/klokantech-basic/style.json?apiKey=${myAPIKey}`,
-	center: [-72.79419772520356, 44.53361448499783],
-	zoom: 14
+	container: 'map',
+	style: `https://maps.geoapify.com/v1/styles/klokantech-basic/style.json?apiKey=${GEOAPIFY_API_KEY}`,
+	center: [-98, 30],
+	zoom: 5
 })
-map.addControl(new maplibregl.NavigationControl())
 
-const popup = new maplibregl.Popup()
+// Handle route finding
+document.getElementById('find-route').addEventListener('click', () => {
+	const startAddress = document.getElementById('start-address').value
+	const endAddress = document.getElementById('end-address').value
 
-const fromWaypointMarker = new maplibregl.Marker()
-	.setLngLat(fromWaypoint)
-	.setPopup(new maplibregl.Popup().setText('1208 Hourglass Drive, Stowe, VT 05672, United States of America'))
-	.addTo(map)
+	// Use Geoapify Autocomplete API to get place details
+	fetch(`https://api.geoapify.com/v1/geocode/autocomplete?text=${startAddress}&apiKey=${GEOAPIFY_API_KEY}`)
+		.then((response) => response.json())
+		.then((startData) => {
+			if (startData.features.length > 0) {
+				const startCoordinates = startData.features[0].geometry.coordinates
 
-const toWaypointMarker = new maplibregl.Marker()
-	.setLngLat(toWaypoint)
-	.setPopup(new maplibregl.Popup().setText('Switchback, Stowe, VT 05672-5111, United States of America'))
-	.addTo(map)
+				fetch(`https://api.geoapify.com/v1/geocode/autocomplete?text=${endAddress}&apiKey=${GEOAPIFY_API_KEY}`)
+					.then((response) => response.json())
+					.then((endData) => {
+						if (endData.features.length > 0) {
+							const endCoordinates = endData.features[0].geometry.coordinates
 
-let routeData
-let routeStepsData
-let instructionsData
-let stepPointsData
+							// Use Geoapify Route API to get route data
+							fetch(
+								`https://api.geoapify.com/v1/routing?waypoints=lonlat:${startCoordinates.join(
+									','
+								)}|lonlat:${endCoordinates.join(
+									','
+								)}&mode=drive&details=route_details,elevation&units=imperial&apiKey=${GEOAPIFY_API_KEY}`
+							)
+								.then((response) => response.json())
+								.then((data) => {
+									console.log(data)
+									routeData = data
+									const steps = []
+									const instructions = []
+									const stepPoints = []
+									coordinates = routeData.properties.waypoints
+									console.log(coordinates)
+									routeData.features[0].properties.legs.forEach((leg, legIndex) => {
+										const legGeometry = routeData.features[0].geometry.coordinates[legIndex]
+										leg.steps.forEach((step, index) => {
+											if (step.instruction) {
+												instructions.push({
+													type: 'Feature',
+													geometry: {
+														type: 'Point',
+														coordinates: legGeometry[step.from_index]
+													},
+													properties: {
+														text: step.instruction.text
+													}
+												})
+											}
 
-fetch(routeUrl)
-	.then((res) => res.json())
-	.then(
-		(routeResult) => {
-			routeData = routeResult
-			const steps = []
-			const instructions = []
-			const stepPoints = []
-			console.log(routeData)
-			const timeSeconds = routeData.features[0].properties.time
-			const time = Math.round(timeSeconds / 60)
-			console.log(time)
-			routeData.features[0].properties.legs.forEach((leg, legIndex) => {
-				const legGeometry = routeData.features[0].geometry.coordinates[legIndex]
-				leg.steps.forEach((step, index) => {
-					if (step.instruction) {
-						instructions.push({
-							type: 'Feature',
-							geometry: {
-								type: 'Point',
-								coordinates: legGeometry[step.from_index]
-							},
-							properties: {
-								text: step.instruction.text
-							}
-						})
-					}
+											if (index !== 0) {
+												stepPoints.push({
+													type: 'Feature',
+													geometry: {
+														type: 'Point',
+														coordinates: legGeometry[step.from_index]
+													},
+													properties: step
+												})
+											}
 
-					if (index !== 0) {
-						stepPoints.push({
-							type: 'Feature',
-							geometry: {
-								type: 'Point',
-								coordinates: legGeometry[step.from_index]
-							},
-							properties: step
-						})
-					}
+											if (step.from_index === step.to_index) {
+												// destination point
+												return
+											}
 
-					if (step.from_index === step.to_index) {
-						// destination point
-						return
-					}
+											const stepGeometry = legGeometry.slice(step.from_index, step.to_index + 1)
+											steps.push({
+												type: 'Feature',
+												geometry: {
+													type: 'LineString',
+													coordinates: stepGeometry
+												},
+												properties: step
+											})
+										})
+									})
 
-					const stepGeometry = legGeometry.slice(step.from_index, step.to_index + 1)
-					steps.push({
-						type: 'Feature',
-						geometry: {
-							type: 'LineString',
-							coordinates: stepGeometry
-						},
-						properties: step
+									routeStepsData = {
+										type: 'FeatureCollection',
+										features: steps
+									}
+
+									instructionsData = {
+										type: 'FeatureCollection',
+										features: instructions
+									}
+
+									stepPointsData = {
+										type: 'FeatureCollection',
+										features: stepPoints
+									}
+
+									map.addSource('route', {
+										type: 'geojson',
+										data: routeData
+									})
+
+									map.addSource('points', {
+										type: 'geojson',
+										data: instructionsData
+									})
+
+									addLayerEvents()
+									drawRoute()
+
+									// Fit map to route
+									map.fitBounds(coordinates, { padding: 10 })
+								})
+								.catch((error) => console.error(error))
+						} else {
+							console.error('End address not found.')
+						}
 					})
-				})
-			})
-
-			routeStepsData = {
-				type: 'FeatureCollection',
-				features: steps
+					.catch((error) => console.error(error))
+			} else {
+				console.error('Start address not found.')
 			}
-
-			instructionsData = {
-				type: 'FeatureCollection',
-				features: instructions
-			}
-
-			stepPointsData = {
-				type: 'FeatureCollection',
-				features: stepPoints
-			}
-
-			map.addSource('route', {
-				type: 'geojson',
-				data: routeData
-			})
-
-			map.addSource('points', {
-				type: 'geojson',
-				data: instructionsData
-			})
-
-			addLayerEvents()
-			drawRoute()
-		},
-		(err) => console.log(err)
-	)
+		})
+		.catch((error) => console.error(error))
+})
 
 function drawRoute() {
 	if (!routeData) {
@@ -129,9 +143,9 @@ function drawRoute() {
 
 	if (map.getLayer('points-layer')) {
 		map.removeLayer('points-layer')
-	}
+		// }
 
-	if (document.getElementById('showDetails').checked) {
+		// if (document.getElementById('showDetails').checked) {
 		map.getSource('route').setData(routeStepsData)
 		map.addLayer({
 			id: 'route-layer',
@@ -264,17 +278,4 @@ function addLayerEvents() {
 			e.preventDefault()
 		}
 	})
-}
-
-function showPopup(data, lngLat) {
-	let popupHtml = Object.keys(data)
-		.map((key) => {
-			return `<div class="popup-property-container">
-						  <span class="popup-property-label">${key}: </span>
-				<span class="popup-property-value">${data[key]}</span>
-			  </div>`
-		})
-		.join('')
-
-	popup.setLngLat(lngLat).setHTML(popupHtml).addTo(map)
 }

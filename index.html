@@ -4,7 +4,6 @@
 		<meta charset="UTF-8" />
 		<title>TrackTracer - Run Route and Spotify Playlist</title>
 		<script src="https://unpkg.com/maplibre-gl@1.15.2/dist/maplibre-gl.js"></script>
-		<!-- <link href="https://unpkg.com/maplibre-gl@1.15.2/dist/maplibre-gl.css" rel="stylesheet" /> -->
 		<link rel="stylesheet" href="./assets/css/output.css" />
 		<link rel="stylesheet" href="./assets/css/tailwind.css" />
 	</head>
@@ -18,19 +17,21 @@
 		<main>
 			<!-- Map Section -->
 			<section id="map-section">
-				<h2>Map</h2>
-				<div class="route-settings">
-					<label class="switch">
-						<input id="showDetails" type="checkbox" onclick="drawRoute()" />
-						<span class="slider round"></span>
-					</label>
-					Show route details
+				<div class="container">
+					<h2>Route Planner</h2>
+					<div class="address-input">
+						<label for="start-address">Start Address:</label>
+						<input type="text" id="start-address" placeholder="Enter start address" />
+					</div>
+					<div class="address-input">
+						<label for="end-address">End Address:</label>
+						<input type="text" id="end-address" placeholder="Enter end address" />
+					</div>
+					<button id="find-route">Find Route</button>
 				</div>
-				<div id="my-map"></div>
-				<!-- Address Autocomplete -->
-				<div class="autocomplete-container" id="autocomplete-container"></div>
+				<div id="map"></div>
 
-				<!-- <form id="map-container">
+				<form id="map-container">
 					<label for="start-address">Enter the starting address (i.e. 123 Alphabet Street, City, State, 12345):</label>
 					<input id="start-address" name="start-address" />
 					<label for="end-address">Enter the ending address:</label>
@@ -43,8 +44,8 @@
 						<option value="cycle">Cycle</option>
 					</select>
 					<!-- Map will be inserted here -->
-					<!-- <button id="generate-route">Generate Route</button>
-				</form> --> -->
+					<button id="generate-route">Generate Route</button>
+				</form>
 			</section>
 			<!-- Spotify Playlist Section -->
 			<section id="spotify-section">
@@ -73,8 +74,6 @@
 		</main>
 		<script src="./assets/js/spotify.js"></script>
 		<script src="/assets/js/route.js"></script>
-		<script src="/assets/js/address.js"></script>
-
 		<!-- Footer Section -->
 		<footer>
 			<p>&copy; 2023, TrackTracer Inc.</p>
