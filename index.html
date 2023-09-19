@@ -1,69 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>TrackTracer - Run Route and Spotify Playlist</title>
-</head>
-<body>
-    <!-- Header Section -->
-    <header>
-        <h1>TrackTracer</h1>
-    </header>
+	<head>
+		<meta charset="UTF-8" />
+		<title>TrackTracer - Run Route and Spotify Playlist</title>
+		<link rel="stylesheet" href="./assets/css/output.css" />
+	</head>
+	<body>
+		<!-- Header Section -->
+		<header>
+			<h1>TrackTracer</h1>
+		</header>
 
-    <!-- Main Content Section -->
-    <main>
-        <!-- Map Section -->
-        <section id="map-section">
-            <h2>Map</h2>
-            <form id="map-container">
-                <label for="start-address">Enter the starting address (i.e. 123 Alphabet Street, City, State, 12345):</label>
-                <input id="start-address" name="start-address">
-                <label for="end-address">Enter the ending address:</label>
-                <input id="end-address" name="end-address">
-                <label for="travel-type"></label>
-                <select name="travel-type" id="travel-type">
-                    <option value="" disabled selected>Select the travel type</option>
-                    <option value="walk">Walk</option>
-                    <option value="drive">Drive</option>
-                    <option value="cycle">Cycle</option>
-                </select>
-                <!-- Map will be inserted here -->
-                <button id="generate-route">Generate Route</button>
-            </form>
-            
-        </section>
-
-        <!-- Spotify Playlist Section -->
-        <section id="spotify-section">
-            <h2>Spotify Playlist</h2>
-            <button id="connect-spotify">Connect to Spotify</button>
-            <div id="playlist-container">
-                <!-- Spotify Playlist will be inserted here -->
-                <label for="genre">
-                    <select name="genre" id="genre">
-                        <option value="" disabled selected>Select your genre</option>
-                        <option value="pop">Pop</option>
-                        <option value="rap">Rap</option>
-                        <option value="rnb">R&B</option>
-                        <option value="hiphop">Hip-Hop</option>
-                        <option value="metal">Metal</option>
-                        <option value="rock">Rock</option>
-                        <option value="classical">Classical</option>
-                        <option value="country">Country</option>
-                        <option value="punk">Punk</option>
-                        <option value="emo">Emo</option>
-                        <option value="ska">Ska</option>
-                        
-                    </select>
-                </label>
-            </div>
-        </section>
-    </main>
-    <script src="./assets/js/spotify.js"></script>
-    <script></script>
-    <!-- Footer Section -->
-    <footer>
-        <p>&copy; 2023, TrackTracer Inc.</p>
-    </footer>
-</body>
+		<!-- Main Content Section -->
+		<main>
+			<!-- Map Section -->
+			<section id="map-section">
+				<h2>Map</h2>
+				<form id="map-container">
+					<label for="start-address">Enter the starting address (i.e. 123 Alphabet Street, City, State, 12345):</label>
+					<input id="start-address" name="start-address" />
+					<label for="end-address">Enter the ending address:</label>
+					<input id="end-address" name="end-address" />
+					<label for="travel-type"></label>
+					<select name="travel-type" id="travel-type">
+						<option value="" disabled selected>Select the travel type</option>
+						<option value="walk">Walk</option>
+						<option value="drive">Drive</option>
+						<option value="cycle">Cycle</option>
+					</select>
+					<!-- Map will be inserted here -->
+					<button id="generate-route">Generate Route</button>
+				</form>
+			</section>
+			<!-- Spotify Playlist Section -->
+			<section id="spotify-section">
+				<h2>Spotify Playlist</h2>
+				<button id="connect-spotify">Connect to Spotify</button>
+				<div id="playlist-container">
+					<!-- Spotify Playlist will be inserted here -->
+					<label for="genre">
+						<select name="genre" id="genre">
+							<option value="" disabled selected>Select your genre</option>
+							<option value="pop">Pop</option>
+							<option value="rap">Rap</option>
+							<option value="rnb">R&B</option>
+							<option value="hiphop">Hip-Hop</option>
+							<option value="metal">Metal</option>
+							<option value="rock">Rock</option>
+							<option value="classical">Classical</option>
+							<option value="country">Country</option>
+							<option value="punk">Punk</option>
+							<option value="emo">Emo</option>
+							<option value="ska">Ska</option>
+              
+						</select>
+					</label>
+				</div>
+			</section>
+		</main>
+		<script src="./assets/js/spotify.js"></script>
+		<script></script>
+		<!-- Footer Section -->
+		<footer>
+			<p>&copy; 2023, TrackTracer Inc.</p>
+		</footer>
+	</body>
 </html>
