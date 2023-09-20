@@ -1,5 +1,7 @@
 // Replace with your Geoapify API keys
 const GEOAPIFY_API_KEY = 'aae43d1f2f8f4ba8aceacce104a02fe4'
+const startAddressEl = document.getElementById('start-address')
+const endAddressEl = document.getElementById('end-address')
 
 // Initialize MaplibreGL map
 const map = new maplibregl.Map({
@@ -12,8 +14,10 @@ const map = new maplibregl.Map({
 // Handle route finding
 document.getElementById('generate').addEventListener('click', (e) => {
 	e.preventDefault()
-	const startAddress = document.getElementById('start-address').value
-	const endAddress = document.getElementById('end-address').value
+	const startAddress = startAddressEl.value
+	const endAddress = endAddressEl.value
+	startAddressEl.value = ''
+	endAddressEl.value = ''
 
 	// Use Geoapify Autocomplete API to get place details
 	fetch(`https://api.geoapify.com/v1/geocode/autocomplete?text=${startAddress}&apiKey=${GEOAPIFY_API_KEY}`)
