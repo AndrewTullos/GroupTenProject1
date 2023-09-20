@@ -1,6 +1,5 @@
-let travelTime = 30;
 let genreEl = document.getElementById('genre'); //The genre select element
-let connectSpotifyEl = document.getElementById('connect-spotify'); //The button to search for tracks
+let generatePlaylistEl = document.getElementById('generate-playlist'); //The button to search for tracks
 let tracks = [];
 var genreSelected = '';
 let url;
@@ -32,8 +31,7 @@ async function searchTracks(thisUrl) {
 	}
 }
 
-connectSpotifyEl.addEventListener('click', async function(event) {
-	if (genreEl.value != '') { //Only do anything if genre is selected
+async function GeneratePlaylist(travelTime) {
 		console.log(genreSelected);
 	let thisResult = await searchTracks(url); //Get the result based of the url designated
 	console.log(thisResult);
@@ -55,8 +53,7 @@ connectSpotifyEl.addEventListener('click', async function(event) {
 	}
 	DisplayTracks(resultTracks);
 	console.log(resultTracks);
-	}
-})
+}
 
 function DisplayTracks(tracks) {
 

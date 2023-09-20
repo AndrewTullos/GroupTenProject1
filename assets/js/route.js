@@ -10,7 +10,7 @@ const map = new maplibregl.Map({
 })
 
 // Handle route finding
-document.getElementById('find-route').addEventListener('click', () => {
+document.getElementById('generate').addEventListener('click', () => {
 	const startAddress = document.getElementById('start-address').value
 	const endAddress = document.getElementById('end-address').value
 
@@ -38,7 +38,8 @@ document.getElementById('find-route').addEventListener('click', () => {
 								.then((response) => response.json())
 								.then((data) => {
 									console.log(data)
-									routeData = data
+									routeData = data;
+									let travelTime = routeData.features[0].properties.time / 60;
 									const steps = []
 									const instructions = []
 									const stepPoints = []
@@ -118,6 +119,9 @@ document.getElementById('find-route').addEventListener('click', () => {
 
 									// Fit map to route
 									map.fitBounds(coordinates, { padding: 10 })
+									if (genreEl.value != '') {
+										GeneratePlaylist(travelTime);
+									}
 								})
 								.catch((error) => console.error(error))
 						} else {
@@ -125,6 +129,7 @@ document.getElementById('find-route').addEventListener('click', () => {
 						}
 					})
 					.catch((error) => console.error(error))
+					console.log(travelTime);
 			} else {
 				console.error('Start address not found.')
 			}
