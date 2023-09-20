@@ -10,7 +10,8 @@ const map = new maplibregl.Map({
 })
 
 // Handle route finding
-document.getElementById('generate').addEventListener('click', () => {
+document.getElementById('generate').addEventListener('click', (e) => {
+	e.preventDefault()
 	const startAddress = document.getElementById('start-address').value
 	const endAddress = document.getElementById('end-address').value
 
@@ -129,7 +130,6 @@ document.getElementById('generate').addEventListener('click', () => {
 						}
 					})
 					.catch((error) => console.error(error))
-					console.log(travelTime);
 			} else {
 				console.error('Start address not found.')
 			}
