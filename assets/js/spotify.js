@@ -2,13 +2,14 @@ let travelTime = 30;
 let genreEl = document.getElementById('genre'); //The genre select element
 let connectSpotifyEl = document.getElementById('connect-spotify'); //The button to search for tracks
 let tracks = [];
-var genreSelected = 'pop';
+var genreSelected = '';
 let url;
-
+//Changes the url to include a given genre whenever it's selected.
 genreEl.addEventListener('change', function(event) {
 	genreSelected = event.target.value;
 	console.log(genreSelected);
 	url = `https://spotify23.p.rapidapi.com/recommendations/?limit=50&seed_genres=${genreSelected}`;
+	console.log(url);
 })
 
 console.log(url);
@@ -19,36 +20,47 @@ const options = {
 		'X-RapidAPI-Host': 'spotify23.p.rapidapi.com'
 	}
 };
-
+//Will be called to search for the tracks with the url defined based on the genre selected.
 async function searchTracks(thisUrl) {
 	try {
 		const response = await fetch(thisUrl, options);
-		const result = await response.text();
+		const result = await response.json();
 		console.log(result);
+		return result;
 	} catch (error) {
 		console.error(error);
 	}
 }
-searchTracks(url);
-connectSpotifyEl.addEventListener('click', function(event) {
-	console.log(genreSelected);
+
+connectSpotifyEl.addEventListener('click', async function(event) {
+	if (genreEl.value != '') { //Only do anything if genre is selected
+		console.log(genreSelected);
+	let thisResult = await searchTracks(url); //Get the result based of the url designated
+	console.log(thisResult);
 	let resultTracks = [];
 	let tracksDuration = 0;
 	let currentTrackIndex = 0;
-	while (tracksDuration <= travelTime) {
+	while (tracksDuration <= travelTime) { //Add tracks until the travel time is reached by the added duration of the songs
 		let currentTrack = thisResult.tracks[currentTrackIndex];
-		let thisTrack = {
+		let thisTrack = { //Create the new track object with all the required information
 			name: currentTrack.name,
-			artist: currentTrack.artists[0],
+			artist: currentTrack.artists[0].name,
 			duration: DurationInMinutes(currentTrack.duration_ms),
-			url: currentTrack.external_urls[0]
+			url: currentTrack.external_urls.spotify
 		};
-		resultTracks.push(thisTrack);
-		currentTrackIndex++;
+		resultTracks.push(thisTrack); //Add the created track to the list of output tracks
+		currentTrackIndex++; //Aggregate the variable for the index in the results
 		tracksDuration += thisTrack.duration;
+		console.log(tracksDuration);
 	}
+	DisplayTracks(resultTracks);
 	console.log(resultTracks);
+	}
 })
+
+function DisplayTracks(tracks) {
+
+}
 
 function DurationInMinutes(duration) {
 	let durationSeconds = duration / 1000;
