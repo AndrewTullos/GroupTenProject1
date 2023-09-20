@@ -1,5 +1,6 @@
 let genreEl = document.getElementById('genre'); //The genre select element
 let generatePlaylistEl = document.getElementById('generate-playlist'); //The button to search for tracks
+let trackContainer = document.getElementById('track-container')
 let tracks = [];
 var genreSelected = '';
 let url;
@@ -53,11 +54,21 @@ async function GeneratePlaylist(travelTime) {
 	}
 	DisplayTracks(resultTracks);
 	console.log(resultTracks);
+
+
 }
 
 function DisplayTracks(tracks) {
+	const trackContainer = document.getElementById('track-container'); // Assuming the container's ID is 'track-container'
+	trackContainer.innerHTML = ''; // Clear previous content
 
+	for (const track of tracks) {
+		const element = document.createElement('p');
+		element.textContent = `${track.name} by ${track.artist} - ${track.duration.toFixed('2')} mins\nlink: ${track.url}\n\n`;
+		trackContainer.appendChild(element);
+	}
 }
+
 
 function DurationInMinutes(duration) {
 	let durationSeconds = duration / 1000;
