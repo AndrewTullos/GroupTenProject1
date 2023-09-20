@@ -1,5 +1,6 @@
 const genreEl = document.getElementById('genre') //  The genre select element
 const genre = genreEl.options[genreEl.selectedIndex].value
+const trackContainer = document.getElementById('track-container')
 const url = `https://spotify23.p.rapidapi.com/recommendations/?limit=50&seed_genres=${genre}`
 
 let tracks = []
@@ -44,7 +45,17 @@ async function GeneratePlaylist(travelTime) {
 	DisplayTracks(resultTracks)
 }
 
-function DisplayTracks(tracks) {}
+function DisplayTracks(tracks) {
+	const trackContainer = document.getElementById('track-container'); // Assuming the container's ID is 'track-container'
+	trackContainer.innerHTML = ''; // Clear previous content
+
+	for (const track of tracks) {
+		const element = document.createElement('p');
+		element.textContent = `${track.name} by ${track.artist} - ${track.duration.toFixed('2')} mins\nlink: ${track.url}\n\n`;
+		trackContainer.appendChild(element);
+	}
+}
+
 
 function DurationInMinutes(duration) {
 	let durationSeconds = duration / 1000
