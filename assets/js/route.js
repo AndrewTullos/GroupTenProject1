@@ -6,7 +6,7 @@ const map = new maplibregl.Map({
 	container: 'map',
 	style: `https://maps.geoapify.com/v1/styles/klokantech-basic/style.json?apiKey=${GEOAPIFY_API_KEY}`,
 	center: [-98, 30],
-	zoom: 5
+	zoom: 4
 })
 
 // Handle route finding

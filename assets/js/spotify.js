@@ -37,27 +37,57 @@ async function GeneratePlaylist(travelTime) {
 			album: currentTrack.album.name,
 			image: currentTrack.album.images[2].url,
 			artist: currentTrack.artists[0].name,
-			duration: DurationInMinutes(currentTrack.duration_ms),
+			duration: songLength(currentTrack.duration_ms),
 			url: currentTrack.external_urls.spotify
 		}
 		resultTracks.push(thisTrack) //  Add the created track to the list of output tracks
 		currentTrackIndex++ //  Aggregate the variable for the index in the results
-		tracksDuration += thisTrack.duration
+		tracksDuration += DurationInMinutes(currentTrack.duration_ms)
 	}
 	DisplayTracks(resultTracks)
 }
 
 function DisplayTracks(tracks) {
-	const trackContainer = document.getElementById('playlist-container'); // Assuming the container's ID is 'track-container'
-	trackContainer.innerHTML = ''; // Clear previous content
+	const trackContainer = document.getElementById('playlist-container')
+	const tableBodyEl = document.getElementById('table-body')
+	tableBodyEl.innerHTML = '' // Clear previous content
+	trackContainer.classList.remove('hidden')
 
 	for (const track of tracks) {
-		const element = document.createElement('p');
-		element.textContent = `${track.name} by ${track.artist} - ${track.duration.toFixed('2')} mins\nlink: ${track.url}\n\n ${track.image}`;
-		trackContainer.appendChild(element);
+		const row = document.createElement('tr')
+		row.className = 'bg-white border-b dark:bg-gray-900 dark:border-gray-700'
+		row.innerHTML = `
+		<td class="px-2">${track.name}</td>
+		<td class="px-6">${track.artist}</td>
+		<td
+			scope="row"
+			class="px-1 py-1 font-medium float-right text-gray-900 whitespace-nowrap dark:text-white">
+			<img
+			class="w-[64px]"
+			src=${track.image}
+			alt="album art" />
+		</td>
+		<td class="px-4">${track.album}</td>
+		<td class="px-2">${track.duration}</td>
+		<td class="px-2">
+			<a
+				href="${track.url}"
+				class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+			>Song</a
+			>
+		</td>
+		`
+
+		tableBodyEl.appendChild(row)
 	}
 }
-
+//  Convert ms to min:sec output
+function songLength(duration) {
+	let minutes = Math.floor(duration / 60000)
+	let seconds = ((duration % 60000) / 1000).toFixed(0)
+	let songTime = seconds == 60 ? minutes + 1 + ':00' : minutes + ':' + (seconds < 10 ? '0' : '') + seconds
+	return songTime
+}
 
 function DurationInMinutes(duration) {
 	let durationSeconds = duration / 1000
