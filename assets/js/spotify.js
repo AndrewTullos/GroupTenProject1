@@ -34,6 +34,8 @@ async function GeneratePlaylist(travelTime) {
 		let thisTrack = {
 			//  Create the new track object with all the required information
 			name: currentTrack.name,
+			album: currentTrack.album.name,
+			image: currentTrack.album.images[2].url,
 			artist: currentTrack.artists[0].name,
 			duration: DurationInMinutes(currentTrack.duration_ms),
 			url: currentTrack.external_urls.spotify
@@ -46,12 +48,12 @@ async function GeneratePlaylist(travelTime) {
 }
 
 function DisplayTracks(tracks) {
-	const trackContainer = document.getElementById('track-container'); // Assuming the container's ID is 'track-container'
+	const trackContainer = document.getElementById('playlist-container'); // Assuming the container's ID is 'track-container'
 	trackContainer.innerHTML = ''; // Clear previous content
 
 	for (const track of tracks) {
 		const element = document.createElement('p');
-		element.textContent = `${track.name} by ${track.artist} - ${track.duration.toFixed('2')} mins\nlink: ${track.url}\n\n`;
+		element.textContent = `${track.name} by ${track.artist} - ${track.duration.toFixed('2')} mins\nlink: ${track.url}\n\n ${track.image}`;
 		trackContainer.appendChild(element);
 	}
 }
