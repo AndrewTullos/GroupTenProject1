@@ -7,18 +7,17 @@
 		<link rel="stylesheet" href="./assets/css/output.css" />
 		<link rel="stylesheet" href="./assets/css/tailwind.css" />
 	</head>
-	<body class="bg-slate-800 text-white ">
+	<body class="bg-slate-800 text-white h-[vh100] w-[90%] m-auto">
 		<!-- Header Section -->
 		<header>
-			<h1 class="text-3xl">TrackTracer</h1>
+			<h1 class="text-3xl text-center">TrackTracer</h1>
 		</header>
-
 		<!-- Main Content Section -->
-		<main class="bg-slate-800">
-			<!-- Map Section -->
-			<section id="form-section">
-				<form>
-					<div class="grid gap-6 mb-6 md:grid-cols-2">
+		<main class="flex">
+			<!-- Form Section -->
+			<section id="form-section" class="flex w-[20%]">
+				<form class="w-full">
+					<div class="grid gap-6 mb-6">
 						<div>
 							<label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
 								>Start Address</label
@@ -60,8 +59,7 @@
 								id="genre"
 								class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
 								required>
-                                <option selected disabled>Please select a genre</option>
-								<option value="classical">Classical</option>
+								<option selected value="classical">Classical</option>
 								<option value="country">Country</option>
 								<option value="electronic">Electronic</option>
 								<option value="emo">Emo</option>
@@ -79,19 +77,62 @@
 					<button
 						type="submit"
 						id="generate"
-						class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+						class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
 						Submit
 					</button>
 				</form>
-				<div id="map"></div>
 			</section>
-			<!-- Spotify Playlist Section -->
-			<section id="spotify-section">
-				<h2>Spotify Playlist</h2>
-				<div id="playlist-container">
-					<!-- Spotify Playlist will be inserted here -->
-				</div>
-			</section>
+			<!-- Second Column -->
+			<div class="flex flex-col items-center justify-center w-[80%]">
+				<!-- Map -->
+				<section class="flex w-[90%]">
+					<div id="map" class="flex flex-col items-center h-96 w-full"></div>
+				</section>
+				<!-- Spotify Playlist Section -->
+				<section id="spotify-section" class="flex flex-col mt-6 items-center w-[90%]">
+					<!-- <h2>Spotify Playlist</h2> -->
+					<div class="w-full">
+						<!-- Spotify Playlist will be inserted here -->
+						<div class="relative overflow-x-auto shadow-md sm:rounded-lg w-auto">
+							<table id="playlist-container" class="w-full text-sm text-left text-gray-500 dark:text-gray-400 hidden">
+								<thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+									<tr>
+										<th scope="col" class="px-2 py-1">Track</th>
+										<th scope="col" class="px-6 py-1">Artist</th>
+										<th scope="col" class="px-1 py-1"></th>
+										<th scope="col" class="px-4 py-1">Album</th>
+										<th scope="col" class="px-2 py-1">Time</th>
+										<th scope="col" class="px-2 py-1">Link</th>
+									</tr>
+								</thead>
+								<tbody id="table-body">
+									<tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+										<td class="px-2">Track Name</td>
+										<td class="px-6">Artist Name</td>
+										<td
+											scope="row"
+											class="px-1 py-1 font-medium float-right text-gray-900 whitespace-nowrap dark:text-white">
+											<img
+												class="h-[64px]"
+												src="https://i.scdn.co/image/ab67616d00004851cafb66211cd45e39f97bdd2f"
+												alt="album art" />
+										</td>
+										<td class="px-4">Album Name</td>
+										<td class="px-2">4:00</td>
+										<td class="px-2">
+											<a
+												href="https://open.spotify.com/track/5Xak5fmy089t0FYmh3VJiY?si=3d00199742994e4c"
+												class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+												>Song</a
+											>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</section>
+			</div>
 		</main>
 		<script src="./assets/js/spotify.js"></script>
 		<script src="/assets/js/route.js"></script>
