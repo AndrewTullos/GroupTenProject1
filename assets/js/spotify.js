@@ -72,7 +72,7 @@ function DisplayTracks(tracks) {
 		<td class="px-2">
 			<a
 				href="${track.url}"
-				class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+				class="font-medium text-gray-600 dark:text-green-500 hover:underline"
 			>Song</a
 			>
 		</td>
