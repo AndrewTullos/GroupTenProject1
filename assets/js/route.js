@@ -118,6 +118,18 @@ document.getElementById('generate').addEventListener('click', (e) => {
 										features: stepPoints
 									}
 
+									if (map.getLayer('route-layer')) {
+										map.removeLayer('route-layer')
+										map.removeSource('route')
+								
+									}
+
+									if (map.getLayer('points-layer')) {
+										map.removeLayer('points-layer')
+										map.removeSource('points')
+								
+									}
+
 									map.addSource('route', {
 										type: 'geojson',
 										data: routeData
@@ -130,6 +142,7 @@ document.getElementById('generate').addEventListener('click', (e) => {
 
 									//  Call drawRoute()
 									drawRoute()
+									
 
 									// Fit map to route
 									map.fitBounds(coordinates, { padding: 10 })
@@ -138,6 +151,7 @@ document.getElementById('generate').addEventListener('click', (e) => {
 									GeneratePlaylist(travelTime)
 									// Reset genre input
 									genreEl.selectedIndex = 0
+									
 								})
 								.catch((error) => console.error(error))
 						} else {
@@ -159,61 +173,12 @@ function drawRoute() {
 
 	if (map.getLayer('route-layer')) {
 		map.removeLayer('route-layer')
+
 	}
 
 	if (map.getLayer('points-layer')) {
 		map.removeLayer('points-layer')
-		// }
-
-		// if (document.getElementById('showDetails').checked) {
-		map.getSource('route').setData(routeStepsData)
-		map.addLayer({
-			id: 'route-layer',
-			type: 'line',
-			source: 'route',
-			layout: {
-				'line-join': 'round',
-				'line-cap': 'round'
-			},
-			paint: {
-				'line-color': [
-					'match',
-					['get', 'road_class'],
-					'motorway',
-					'#009933',
-					'trunk',
-					'#00cc99',
-					'primary',
-					'#009999',
-					'secondary',
-					'#00ccff',
-					'tertiary',
-					'#9999ff',
-					'residential',
-					'#9933ff',
-					'service_other',
-					'#ffcc66',
-					'unclassified',
-					'#666699',
-					/* other */
-					'#666699'
-				],
-				'line-width': 8
-			}
-		})
-
-		map.getSource('points').setData(stepPointsData)
-		map.addLayer({
-			id: 'points-layer',
-			type: 'circle',
-			source: 'points',
-			paint: {
-				'circle-radius': 4,
-				'circle-color': '#ddd',
-				'circle-stroke-color': '#aaa',
-				'circle-stroke-width': 1
-			}
-		})
+		
 	} else {
 		map.getSource('route').setData(routeData)
 		map.addLayer({
