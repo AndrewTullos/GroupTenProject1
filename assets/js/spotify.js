@@ -28,7 +28,7 @@ async function GeneratePlaylist(travelTime) {
 	let resultTracks = []
 	let tracksDuration = 0
 	let currentTrackIndex = 0
-	while (tracksDuration <= travelTime) {
+	while (tracksDuration <= travelTime && currentTrackIndex < 50) {
 		//  Add tracks until the travel time is reached by the added duration of the songs
 		let currentTrack = thisResult.tracks[currentTrackIndex]
 		let thisTrack = {
