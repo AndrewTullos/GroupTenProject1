@@ -11,7 +11,7 @@ Track Tracer is an fresh new application that fuses navigation with music, ensur
   To create a seamless experience for anyone who wants to optimize their travel or exercise routes with music, turning every journey into a expertly-timed playlist.
 
 - **What problem does it solve?**
-  Eliminates the headache and time requirement of creating, pausing, inturrupting a playlist.
+  Eliminates the headache and time requirement of creating, pausing, interrupting a playlist.
 
 - **What did you learn?**
   Integration of two distinct APIs, understanding the blend of two different API's, and learning how to two separate ideas create a third.
@@ -34,7 +34,11 @@ Track Tracer is an fresh new application that fuses navigation with music, ensur
 ## Credits
 
 - [MapLibre API](https://maplibre.org/)
+- [GeoApify API](https://www.geoapify.com/)
 - [Spotify API](https://developer.spotify.com/documentation/web-api/)
+
+## Contributors
+
 - Brandon Mullins - [GitHub](https://github.com/WebDevMullins)
 - Austin Mann - [GitHub](https://github.com/ammann64)
 - Catherine Parker - [GitHub](https://github.com/caparker23)
