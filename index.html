@@ -14,6 +14,7 @@
 			}
 		</script>
 		<script src="https://unpkg.com/maplibre-gl@1.15.2/dist/maplibre-gl.js"></script>
+		<link rel="icon" href="./assets/images/vinyl.png" type="image/x-icon" />
 		<link rel="stylesheet" href="./assets/css/output.css" />
 		<link rel="stylesheet" href="./assets/css/tailwind.css" />
 	</head>
@@ -21,12 +22,11 @@
 		<!-- Header Section -->
 		<header>
 			<nav class="bg-white border-gray-200 dark:bg-gray-600">
-				<div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+				<div class="max-w-[90%] flex flex-wrap items-center justify-between mx-auto p-4">
 					<div class="flex items-center">
-						<img src="assets\images\vinyl.png" class="h-8 mr-3" alt="Vinyl Record" />
+						<img src="./assets/images/vinyl.png" class="h-8 mr-3" alt="Vinyl Record" />
 						<span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Track Tracer</span>
 					</div>
-
 					<div class="w-full md:block md:w-auto" id="navbar-default">
 						<button
 							id="theme-toggle"
@@ -59,7 +59,7 @@
 		<!-- Main Content Section -->
 		<main class="flex text-white h-[vh100] w-[90%] m-auto py-4">
 			<!-- Form Section -->
-			<section id="form-section" class="flex w-[20%]">
+			<section id="form-section" class="flex w-[20%] pr-4">
 				<form class="w-full">
 					<div class="grid gap-6 mb-6">
 						<div>
@@ -127,13 +127,13 @@
 				</form>
 			</section>
 			<!-- Second Column -->
-			<div class="flex flex-col items-center justify-center w-[80%]">
+			<div class="flex flex-col items-center justify-center w-[90%]">
 				<!-- Map -->
-				<section class="flex w-[90%]">
+				<section class="flex w-full px-4">
 					<div id="map" class="flex flex-col items-center h-96 w-full"></div>
 				</section>
 				<!-- Spotify Playlist Section -->
-				<section id="spotify-section" class="flex flex-col mt-6 items-center w-[90%]">
+				<section id="spotify-section" class="flex flex-col mt-6 items-center w-full px-4">
 					<!-- <h2>Spotify Playlist</h2> -->
 					<div class="w-full">
 						<!-- Spotify Playlist will be inserted here -->
