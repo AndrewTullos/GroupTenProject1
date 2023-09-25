@@ -1,7 +1,6 @@
 const genreEl = document.getElementById('genre') //  The genre select element
-const genre = genreEl.options[genreEl.selectedIndex].value
 const trackContainer = document.getElementById('track-container')
-const url = `https://spotify23.p.rapidapi.com/recommendations/?limit=50&seed_genres=${genre}`
+
 
 let tracks = []
 
@@ -23,7 +22,9 @@ async function searchTracks(thisUrl) {
 	}
 }
 
-async function GeneratePlaylist(travelTime) {
+async function GeneratePlaylist(travelTime) {	
+	const genre = genreEl.options[genreEl.selectedIndex].value
+	const url = `https://spotify23.p.rapidapi.com/recommendations/?limit=50&seed_genres=${genre}`
 	let thisResult = await searchTracks(url) //  Get the result based of the url designated
 	let resultTracks = []
 	let tracksDuration = 0
